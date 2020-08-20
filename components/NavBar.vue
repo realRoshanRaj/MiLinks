@@ -1,5 +1,5 @@
 <template>
-    <b-navbar toggleable="md">
+    <b-navbar toggleable="md" class="border-bottom">
       <b-navbar-brand href="#">MiLinks</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
