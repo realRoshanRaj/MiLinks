@@ -10,19 +10,25 @@
               alt="Logo"
             >
           </v-avatar>
-          MiLinks
+          <span v-if="$vuetify.breakpoint.smAndUp">MiLinks</span>
         </router-link>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn rounded>Login</v-btn>
-      <v-btn rounded>Sign up</v-btn>
+      <v-switch v-model="$vuetify.theme.dark" label="Dark Theme"></v-switch>
+
+
+      <v-btn class="mx-2" rounded text to="/login" @click="showLoginForm = !showLoginForm">Login</v-btn>
+      <v-btn color="mainGreen" rounded to="/register">Sign up</v-btn>
     </v-toolbar>
   </nav>
 </template>
 
 <script>
   export default {
-    name: "NavBar"
+    name: "NavBar",
+    data: () => ({
+      showLoginForm: false,
+    }),
   }
 </script>
 

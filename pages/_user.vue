@@ -1,11 +1,17 @@
 <template>
-
+  <h1>{{user}}</h1>
 </template>
 
 <script>
-    export default {
-        name: "user"
+  export default {
+    name: "user",
+    asyncData({params}) {
+      // called every time before loading the component
+      return {
+        user: params.user
+      }
     }
+  }
 </script>
 
 <style scoped>
