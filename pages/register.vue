@@ -1,5 +1,5 @@
 <template>
-<h1>Signup you moron</h1>
+
 </template>
 
 <script>
