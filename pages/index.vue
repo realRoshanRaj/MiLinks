@@ -1,8 +1,5 @@
 <template>
   <div>
-    <a href="https://www.instagram.com/barackobama">Browser</a>
-    <a href="instagram://user?username=barackobama">Mobile</a>
-    {{os.family}}
   </div>
 </template>
 
@@ -13,6 +10,7 @@
     data: () => ({
         os: platform.os
     }),
+
   }
 </script>
 
