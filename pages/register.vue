@@ -94,6 +94,11 @@
   export default {
     name: "register",
     mixins: [validationMixin],
+    fetch({ store }) {
+      store.commit('updateTitle', 'register');
+      store.commit('showNavBar', true);
+      store.commit('hideEndNavBtn', true);
+    },
     data: () => ({
       name: '',
       username: '',

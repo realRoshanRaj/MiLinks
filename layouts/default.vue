@@ -57,7 +57,7 @@
 <!--        <v-icon>mdi-menu</v-icon>-->
 <!--      </v-btn>-->
 <!--    </v-app-bar>-->
-    <NavBar />
+    <NavBar :hide="hideNavBar" :hide-end-buttons="hideEndNavBtn"/>
     <v-main>
       <v-container>
         <nuxt />
@@ -93,6 +93,14 @@
 import NavBar from "../components/NavBar";
 export default {
   components: {NavBar},
+  computed: {
+    hideNavBar() {
+      return !this.$store.state.showNavBar;
+    },
+    hideEndNavBtn() {
+      return this.$store.state.hideEndNavBtn || this.$store.state.isAuthenticated;
+    }
+  },
   data () {
     return {
       clipped: false,

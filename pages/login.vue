@@ -62,31 +62,28 @@
 
 <script>
   import {validationMixin} from 'vuelidate';
-  import {email, maxLength, minLength, required, sameAs} from 'vuelidate/lib/validators';
+  import {required} from 'vuelidate/lib/validators';
 
   export default {
     name: "Login",
     mixins: [validationMixin],
     data: () => ({
       username: '',
-      email: '',
       password: '',
       rememberMe: false
     }),
     validations: {
       username: {
         required,
-        minLength: minLength(4),
-        maxLength: maxLength(25)
-      },
-      email: {
-        required,
-        email
       },
       password: {
         required,
-        minLength: minLength(6)
       },
+    },
+    fetch({ store }) {
+      store.commit('updateTitle', 'login');
+      store.commit('showNavBar', true);
+      store.commit('hideEndNavBtn', true);
     },
     methods: {
       usernameBlur() {
@@ -102,31 +99,20 @@
         this.username = this.username.toLowerCase().replace(/\s/g, "").trim();
         return this.username;
       },
+
       usernameErrors() {
         const errors = [];
         if (!this.$v.username.$dirty) return errors;
-        !this.$v.username.minLength &&
-        errors.push('Username must be at least 4 characters long');
-        !this.$v.username.maxLength &&
-        errors.push("Usernames can't be longer than 25 characters");
         !this.$v.username.required && errors.push('Username is required.');
-        return errors;
-      },
-      emailErrors() {
-        const errors = [];
-        if (!this.$v.email.$dirty) return errors;
-        !this.$v.email.email && errors.push('Must be valid e-mail');
-        !this.$v.email.required && errors.push('E-mail is required');
         return errors;
       },
       passwordErrors() {
         const errors = [];
         if (!this.$v.password.$dirty) return errors;
-        !this.$v.password.minLength &&
-        errors.push('Password must be at least 6 characters long');
         !this.$v.password.required && errors.push('Password is required.');
         return errors;
       },
+
     }
   }
 </script>

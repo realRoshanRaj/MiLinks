@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav v-if="!hide">
     <v-toolbar>
       <v-toolbar-title>
         <nuxt-link
@@ -16,26 +16,28 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer/>
-      <v-switch
-        v-model="$vuetify.theme.dark"
-        label="Dark Theme"
-      />
-      <v-btn
-        class="mx-2"
-        rounded
-        text
-        to="/login"
-        @click="showLoginForm = !showLoginForm"
-      >
-        Login
-      </v-btn>
-      <v-btn
-        color="mainGreen"
-        rounded
-        to="/register"
-      >
-        Sign up
-      </v-btn>
+<!--      <v-switch-->
+<!--        v-model="$vuetify.theme.dark"-->
+<!--        label="Dark Theme"-->
+<!--      />-->
+      <div v-if="!hideEndButtons">
+        <v-btn
+          class="mx-2"
+          rounded
+          text
+          to="/login"
+          @click="showLoginForm = !showLoginForm"
+        >
+          Login
+        </v-btn>
+        <v-btn
+          color="mainGreen"
+          rounded
+          to="/register"
+        >
+          Sign up
+        </v-btn>
+      </div>
     </v-toolbar>
   </nav>
 </template>
@@ -46,6 +48,16 @@
     data: () => ({
       showLoginForm: false,
     }),
+    props: {
+      hide: {
+        type: Boolean,
+        default: false
+      },
+      hideEndButtons: {
+        type: Boolean,
+        default: false
+      }
+    }
   }
 </script>
 
