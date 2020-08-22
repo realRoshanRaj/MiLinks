@@ -4,7 +4,6 @@
       <v-col cols="12" md="6" sm="7">
         <h1 class="text-center">Create an Account</h1>
         <v-form @submit.prevent="register" method="post">
-
           <v-card raised rounded>
             <v-card-text>
               <v-container>
@@ -13,6 +12,7 @@
                     <v-text-field
                       v-model="name"
                       :error-messages="nameErrors"
+                      autofocus
                       counter="30"
                       label="Name"
                       required

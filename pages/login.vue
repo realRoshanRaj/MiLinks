@@ -4,7 +4,6 @@
       <v-col cols="12" md="6" sm="7">
         <h1 class="text-center">Login</h1>
         <v-form @submit.prevent="register" method="post">
-
           <v-card raised rounded>
             <v-card-text>
               <v-container>

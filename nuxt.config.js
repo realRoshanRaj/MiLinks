@@ -80,10 +80,12 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          mainGreen: '#12973d'
+          mainGreen: '#12973d',
+          mainPurple: '#8200ff'
         },
         light : {
-          mainGreen: '#7affa5'
+          mainGreen: '#7affa5',
+          mainPurple: '#b753ff'
         }
       }
     }

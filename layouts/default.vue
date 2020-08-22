@@ -59,7 +59,7 @@
 <!--    </v-app-bar>-->
     <NavBar :hide="hideNavBar" :hide-end-buttons="hideEndNavBtn"/>
     <v-main>
-      <v-container>
+      <v-container class="fill-height">
         <nuxt />
       </v-container>
     </v-main>
@@ -80,10 +80,11 @@
 <!--        </v-list-item>-->
 <!--      </v-list>-->
 <!--    </v-navigation-drawer>-->
-    <v-footer
+    <!--<v-footer
       :absolute="!fixed"
       app
-    >
+    >-->
+    <v-footer>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>

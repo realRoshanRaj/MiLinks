@@ -16,10 +16,10 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer/>
-<!--      <v-switch-->
-<!--        v-model="$vuetify.theme.dark"-->
-<!--        label="Dark Theme"-->
-<!--      />-->
+      <v-switch
+        v-model="$vuetify.theme.dark"
+        label="Dark Theme"
+      />
       <div v-if="!hideEndButtons">
         <v-btn
           class="mx-2"
