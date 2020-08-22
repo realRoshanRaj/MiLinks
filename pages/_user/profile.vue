@@ -1,0 +1,23 @@
+<template>
+  <h3>{{user}}</h3>
+</template>
+
+<script>
+  export default {
+    name: "user-profile",
+    fetch({ store }) {
+      store.commit('updateTitle', 'user');
+      store.commit('showNavBar', false);
+    },
+    asyncData({params}) {
+      // called every time before loading the component
+      return {
+        user: params.user
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>
