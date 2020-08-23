@@ -20,25 +20,24 @@ export default {
     // title: process.env.npm_package_name || '',
     title: 'MiLinks',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: process.env.npm_package_description || ''}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      {rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"}
     ]
   },
   /*
   ** Global CSS
   */
-  css: [
-  ],
+  css: [],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
-  plugins: [
-  ],
+  plugins: [],
   /*
   ** Auto import components
   ** See https://nuxtjs.org/api/configuration-components
@@ -70,7 +69,7 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     breakpoint: {},
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -83,9 +82,9 @@ export default {
           mainGreen: '#12973d',
           mainPurple: '#8200ff'
         },
-        light : {
+        light: {
           mainGreen: '#7affa5',
-          mainPurple: '#b753ff'
+          mainPurple: '#B388FF'
         }
       }
     }
@@ -94,6 +93,5 @@ export default {
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
-  build: {
-  }
+  build: {}
 }

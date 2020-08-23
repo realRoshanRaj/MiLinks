@@ -44,6 +44,11 @@
                     :disabled="$v.$invalid"
                   >Login
                   </v-btn>
+                  <nuxt-link style="text-decoration: none; color: inherit;" to="/reset">
+                    <div class="text-center my-4">
+                      Forgot Username or Password
+                    </div>
+                  </nuxt-link>
                 </v-row>
               </v-container>
             </v-card-text>

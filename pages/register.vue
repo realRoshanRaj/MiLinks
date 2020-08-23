@@ -60,8 +60,9 @@
                     />
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field :error-messages="confirmPasswordErrors"  @blur="$v.confirmPassword.$touch()"
-                                  @input="$v.confirmPassword.$touch()" dense label="Confirm Password" required type="password"
+                    <v-text-field :error-messages="confirmPasswordErrors" @blur="$v.confirmPassword.$touch()"
+                                  @input="$v.confirmPassword.$touch()" dense label="Confirm Password" required
+                                  type="password"
                                   v-model="confirmPassword"></v-text-field>
                   </v-col>
                   <v-btn
@@ -94,7 +95,7 @@
   export default {
     name: "register",
     mixins: [validationMixin],
-    fetch({ store }) {
+    fetch({store}) {
       store.commit('updateTitle', 'register');
       store.commit('showNavBar', true);
       store.commit('hideEndNavBtn', true);

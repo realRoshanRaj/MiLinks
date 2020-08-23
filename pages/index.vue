@@ -2,8 +2,8 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" md="6" sm="7">
-        <div class="text-h4 mb-2 text-center text-no-wrap">
-          One link for everything your bio needs</div>
+        <p class="text-h4 mb-2 text-center text-no-wrap">
+          One link for everything your bio needs</p>
         <p class="text-subheading font-weight-bold mb-3 text-center"
           >Every link you need, all in one place
         </p>
@@ -43,5 +43,7 @@
 </script>
 
 <style scoped>
-
+  /*p {*/
+  /*  font-family: "Playfair Display", "Roboto", serif;*/
+  /*}*/
 </style>
