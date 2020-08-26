@@ -63,12 +63,16 @@ export default {
   axios: {
     // baseURL: 'http://localhost:4000'
     baseURL: 'https://milinks.herokuapp.com',
-    // credentials: true,
+    credentials: true,
     // headers: {
     //   common: {
     //     'Access-Control-Allow-Origin': '*',
     //     'Content-Type': 'application/json',
     //   }
+    // },
+
+    // init(axios) {
+    //   axios.defaults.withCredentials = true
     // }
   },
   /*

@@ -5,6 +5,7 @@
 <script>
   export default {
     name: "user-profile",
+    middleware: 'authenticated',
     fetch({ store }) {
       store.commit('updateTitle', 'user');
       store.commit('showNavBar', false);

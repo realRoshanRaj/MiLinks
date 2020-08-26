@@ -33,9 +33,9 @@
                       @input="$v.password.$touch"
                     />
                   </v-col>
-                  <v-col cols="12">
-                    <v-checkbox v-model="rememberMe" label="Remember Me"></v-checkbox>
-                  </v-col>
+                  <!--                  <v-col cols="12">-->
+                  <!--                    <v-checkbox v-model="rememberMe" label="Remember Me"></v-checkbox>-->
+                  <!--                  </v-col>-->
                   <v-btn
                     block
                     color="mainGreen"
@@ -59,6 +59,7 @@
             Don't have an account? Signup
           </div>
         </nuxt-link>
+        <v-btn @click="checkAuth">CHECK STUPID</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -96,7 +97,24 @@
       },
       async login() {
         console.log('it has entered thy zoone')
-        await this.$axios.$get('/users/login');
+        this.$v.$touch();
+        if (!this.$v.$invalid) {
+          const data = await this.$axios.$post('/users/login', {
+            username: this.username.trim().toLowerCase(),
+            password: this.password
+          });
+
+          if (data.errors) {
+            console.log('err', data.errors);
+          }
+
+          // await this.$store.dispatch('login');
+        }
+      },
+      async checkAuth() {
+        const data = await this.$axios.$get('/users/isAuth');
+        console.log('data recieved');
+        console.log(data);
       }
     },
     computed: {

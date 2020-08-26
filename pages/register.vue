@@ -139,7 +139,6 @@
       },
       async register() {
         this.$v.$touch();
-        console.log('entered register');
         if (!this.$v.$invalid) {
           // const data = await axios({
           //   method: 'post',
@@ -151,7 +150,7 @@
           //     password: this.password
           //   }
           // });
-          const data = await this.$axios.$post('https://milinks.herokuapp.com/users/register', {
+          const data = await this.$axios.$post('/users/register', {
             username: this.username.trim().toLowerCase(),
             name: this.name.trim(),
             email: this.email.trim().toLowerCase(),
@@ -160,8 +159,8 @@
           console.log('data');
           console.log(data);
           // await axios.get('https://milinks.herokuapp.com/users/signout');
-          await this.$axios.$get('/users/signout');
-          // window.location.href = `/profile`;/
+
+          // window.location.href = `/profile`;
         }
 
       }

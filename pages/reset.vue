@@ -1,6 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
+      <v-button @click="logout">Hello</v-button>
       <v-col cols="12">
         <v-stepper v-model="step">
           <v-stepper-header>
@@ -138,6 +139,11 @@
         required,
         email
       },
+    },
+    methods: {
+      async logout() {
+        await this.$axios.$get('/users/signout');
+      }
     }
   }
 </script>
