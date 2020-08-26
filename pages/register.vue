@@ -91,6 +91,7 @@
 <script>
   import {validationMixin} from 'vuelidate';
   import {email, maxLength, minLength, required, sameAs} from 'vuelidate/lib/validators';
+  import axios from 'axios';
 
   export default {
     name: "register",
@@ -140,7 +141,17 @@
         this.$v.$touch();
         console.log('entered register');
         if (!this.$v.$invalid) {
-          const data = await this.$axios.$post('/users/register', {
+          // const data = await axios({
+          //   method: 'post',
+          //   url: 'https://milinks.herokuapp.com/users/register',
+          //   data: {
+          //     username: this.username.trim().toLowerCase(),
+          //     name: this.name.trim(),
+          //     email: this.email.trim().toLowerCase(),
+          //     password: this.password
+          //   }
+          // });
+          const data = await this.$axios.$post('https://milinks.herokuapp.com/users/register', {
             username: this.username.trim().toLowerCase(),
             name: this.name.trim(),
             email: this.email.trim().toLowerCase(),
@@ -148,6 +159,8 @@
           });
           console.log('data');
           console.log(data);
+          // await axios.get('https://milinks.herokuapp.com/users/signout');
+          await this.$axios.$get('/users/signout');
           // window.location.href = `/profile`;/
         }
 
