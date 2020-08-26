@@ -112,7 +112,7 @@
         }
       },
       async checkAuth() {
-        const data = await this.$axios.$get('/users/isAuth');
+        const data = await this.$axios.$post('/users/isAuth');
         console.log('data recieved');
         console.log(data);
       }

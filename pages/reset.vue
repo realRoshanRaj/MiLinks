@@ -142,7 +142,7 @@
     },
     methods: {
       async logout() {
-        await this.$axios.$get('/users/signout');
+        await this.$axios.$get('/users/logout');
       }
     }
   }

@@ -156,11 +156,14 @@
             email: this.email.trim().toLowerCase(),
             password: this.password
           });
-          console.log('data');
           console.log(data);
-          // await axios.get('https://milinks.herokuapp.com/users/signout');
-
-          // window.location.href = `/profile`;
+          if(data.success) {
+            this.$store.commit('setUser', data.user);
+            window.location.href = `/${data.user.username}/profile`;
+          } else {
+            console.log(data.errors);
+          }
+          // await axios.get('https://milinks.herokuapp.com/users/logout');
         }
 
       }
