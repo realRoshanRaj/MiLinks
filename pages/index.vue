@@ -16,7 +16,7 @@
 
         <p class="text-center">
           <nuxt-link
-            to="/Login"
+            to="/login"
             style="text-decoration: none; color: inherit;"
           >Already signed up? Login</nuxt-link>
         </p>

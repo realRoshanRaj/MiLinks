@@ -136,7 +136,20 @@
         this.showPrefix = false;
         this.$v.username.$touch();
       },
-      register() {
+      async register() {
+        this.$v.$touch();
+        console.log('entered register');
+        if (!this.$v.$invalid) {
+          const data = await this.$axios.$post('/users/register', {
+            username: this.username.trim().toLowerCase(),
+            name: this.name.trim(),
+            email: this.email.trim().toLowerCase(),
+            password: this.password
+          });
+          console.log('data');
+          console.log(data);
+          // window.location.href = `/profile`;/
+        }
 
       }
     },

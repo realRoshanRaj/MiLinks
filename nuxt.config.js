@@ -60,7 +60,11 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    // baseURL: 'http://localhost:4000'
+    baseURL: 'https://milinks.herokuapp.com',
+    credentials: true
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module

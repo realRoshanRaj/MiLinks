@@ -3,7 +3,7 @@
     <v-row align="center" justify="center">
       <v-col cols="12" md="6" sm="7">
         <h1 class="text-center">Login</h1>
-        <v-form @submit.prevent="register" method="post">
+        <v-form @submit.prevent="login" method="post">
           <v-card raised rounded>
             <v-card-text>
               <v-container>
@@ -56,7 +56,7 @@
         </v-form>
         <nuxt-link style="text-decoration: none; color: inherit;" to="/register">
           <div class="text-center my-4">
-           Don't have an account? Signup
+            Don't have an account? Signup
           </div>
         </nuxt-link>
       </v-col>
@@ -84,7 +84,7 @@
         required,
       },
     },
-    fetch({ store }) {
+    fetch({store}) {
       store.commit('updateTitle', 'login');
       store.commit('showNavBar', true);
       store.commit('hideEndNavBtn', true);
@@ -94,8 +94,9 @@
         this.showPrefix = false;
         this.$v.username.$touch();
       },
-      register() {
-
+      async login() {
+        console.log('it has entered thy zoone')
+        await this.$axios.$get('/users/login');
       }
     },
     computed: {
