@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 import axios from 'axios';
+
 export default {
   /*
   ** Nuxt rendering mode
@@ -92,11 +93,32 @@ export default {
       }
     }
   },
-  // generate: {
-  //   routes() {
-  //
-  //   }
-  // },
+  generate: {
+    routes() {
+      return axios.get('https://milinks.herokuapp.com/users/userList').then(res => {
+        // return res.data.users.map(user => {
+        //   return {
+        //     route: '/' + user.username,
+        //     payload: user
+        //   }
+        // })
+
+        const routes = [];
+        res.data.users.forEach(user => {
+          routes.push({
+            route: '/' + user.username,
+            payload: user
+          });
+          routes.push({
+            route: '/' + user.username + '/profile',
+            payload: user
+          });
+        });
+        return routes;
+      })
+    },
+    fallback: true
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
