@@ -21,8 +21,24 @@ export const mutations = {
   setUser(state, user) {
     state.authenticatedUser = user;
     state.isAuthenticated = (user !== null);
+    console.log('bool', state.isAuthenticated)
   }
 };
 
-export const actions= {
+export const actions = {
+  // async nuxtServerInit({dispatch}) {
+  //
+  //   await dispatch('checkAuth');
+  //
+  //   // if (req.session.user) {
+  //   //   commit('user', req.session.user)
+  //   // }
+  // },
+  async checkAuth({commit}) {
+    console.log('entered nuxt server dispatch')
+    const data = await this.$axios.$post('/users/isAuth');
+    console.log('data', data);
+    commit('setUser', data.user);
+  }
 }
+

@@ -119,7 +119,7 @@
           if(data.success) {
             this.validationError = '';
             this.$store.commit('setUser', data.user);
-            window.location.href = `/${data.user.username}/profile`;
+            this.$router.push({path: `/${data.user.username}`});
           } else {
             console.log(data.errors);
             this.validationError = 'Invalid Login Credentials';
