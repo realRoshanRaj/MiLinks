@@ -96,6 +96,7 @@
   export default {
     name: "register",
     mixins: [validationMixin],
+    middleware: 'notAuth',
     fetch({store}) {
       store.commit('updateTitle', 'register');
       store.commit('showNavBar', true);

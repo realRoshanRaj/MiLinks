@@ -1,5 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
-
+import axios from 'axios';
 export default {
   /*
   ** Nuxt rendering mode
@@ -61,19 +61,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    // baseURL: 'http://localhost:4000'
     baseURL: 'https://milinks.herokuapp.com',
     credentials: true,
-    // headers: {
-    //   common: {
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Content-Type': 'application/json',
-    //   }
-    // },
-
-    // init(axios) {
-    //   axios.defaults.withCredentials = true
-    // }
   },
   /*
   ** vuetify module configuration
@@ -103,6 +92,11 @@ export default {
       }
     }
   },
+  // generate: {
+  //   routes() {
+  //
+  //   }
+  // },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/

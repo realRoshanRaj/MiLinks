@@ -32,10 +32,18 @@
                       @blur="$v.password.$touch"
                       @input="$v.password.$touch"
                     />
+                    <v-alert
+                      v-if="validationError"
+                      dismissible
+                      elevation="2"
+                      type="error"
+                    >{{ validationError }}
+                    </v-alert>
                   </v-col>
                   <!--                  <v-col cols="12">-->
                   <!--                    <v-checkbox v-model="rememberMe" label="Remember Me"></v-checkbox>-->
                   <!--                  </v-col>-->
+
                   <v-btn
                     block
                     color="mainGreen"
@@ -59,8 +67,7 @@
             Don't have an account? Signup
           </div>
         </nuxt-link>
-        <v-btn @click="checkAuth">{{$store.state.isAuthenticated}}</v-btn>
-
+<!--        <v-btn @click="checkAuth">{{$store.state.isAuthenticated}}</v-btn>-->
       </v-col>
     </v-row>
   </v-container>
@@ -73,10 +80,12 @@
   export default {
     name: "Login",
     mixins: [validationMixin],
+    middleware: 'notAuth',
     data: () => ({
       username: '',
       password: '',
-      rememberMe: false
+      rememberMe: false,
+      validationError: ''
     }),
     validations: {
       username: {
@@ -97,7 +106,7 @@
         this.$v.username.$touch();
       },
       async login() {
-        console.log('it has entered thy zoone')
+        // console.log('it has entered thy zoone')
         this.$v.$touch();
         if (!this.$v.$invalid) {
           const data = await this.$axios.$post('/users/login', {
@@ -105,11 +114,15 @@
             password: this.password
           });
 
+          console.log('data', data);
+
           if(data.success) {
+            this.validationError = '';
             this.$store.commit('setUser', data.user);
             window.location.href = `/${data.user.username}/profile`;
           } else {
             console.log(data.errors);
+            this.validationError = 'Invalid Login Credentials';
           }
 
           // await this.$store.dispatch('login');
