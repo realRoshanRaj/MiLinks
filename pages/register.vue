@@ -157,7 +157,7 @@
             password: this.password
           });
           console.log(data);
-          if(data.success) {
+          if(data.loggedIn) {
             this.$store.commit('setUser', data.user);
             window.location.href = `/${data.user.username}/profile`;
           } else {

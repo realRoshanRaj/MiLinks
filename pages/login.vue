@@ -59,7 +59,8 @@
             Don't have an account? Signup
           </div>
         </nuxt-link>
-        <v-btn @click="checkAuth">CHECK STUPID</v-btn>
+        <v-btn @click="checkAuth">{{$store.state.isAuthenticated}}</v-btn>
+
       </v-col>
     </v-row>
   </v-container>
@@ -104,8 +105,11 @@
             password: this.password
           });
 
-          if (data.errors) {
-            console.log('err', data.errors);
+          if(data.success) {
+            this.$store.commit('setUser', data.user);
+            window.location.href = `/${data.user.username}/profile`;
+          } else {
+            console.log(data.errors);
           }
 
           // await this.$store.dispatch('login');

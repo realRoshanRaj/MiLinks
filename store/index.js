@@ -20,7 +20,7 @@ export const mutations = {
   },
   setUser(state, user) {
     state.authenticatedUser = user;
-    state.isAuthenticated = user !== null;
+    state.isAuthenticated = (user !== null);
   }
 };
 
