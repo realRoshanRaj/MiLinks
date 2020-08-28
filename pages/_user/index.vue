@@ -9,12 +9,7 @@
 <script>
   export default {
     name: "user",
-    // asyncData({params}) {
-    //   // called every time before loading the component
-    //   return {
-    //     user: params.user
-    //   }
-    // }
+    // called every time before loading the component
     async asyncData({params, store, payload, $axios}) {
       store.commit('updateTitle', 'user');
       store.commit('showNavBar', true);
