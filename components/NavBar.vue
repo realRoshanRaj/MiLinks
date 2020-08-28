@@ -77,7 +77,7 @@
         },
         methods: {
             async logout() {
-               const data = await this.$axios.$get('/logout');
+               const data = await this.$axios.$get('/users/logout');
                if(data.success) {
                    this.$store.commit('setUser', null);
                }

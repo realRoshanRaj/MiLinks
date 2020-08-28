@@ -8,7 +8,8 @@
     middleware: 'authenticated',
     fetch({ store }) {
       store.commit('updateTitle', 'user');
-      store.commit('showNavBar', false);
+      store.commit('showNavBar', true);
+      store.commit('hideEndNavBtn', false);
     },
     asyncData({params}) {
       // called every time before loading the component

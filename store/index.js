@@ -21,7 +21,7 @@ export const mutations = {
   setUser(state, user) {
     state.authenticatedUser = user;
     state.isAuthenticated = (user !== null);
-    console.log('bool', state.isAuthenticated)
+    // console.log('bool', state.isAuthenticated)
   }
 };
 
