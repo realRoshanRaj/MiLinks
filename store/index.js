@@ -35,10 +35,16 @@ export const actions = {
   //   // }
   // },
   async checkAuth({commit}) {
-    console.log('entered nuxt server dispatch')
-    const data = await this.$axios.$post('/users/isAuth');
-    console.log('data', data);
-    commit('setUser', data.user);
+    try {
+      const data = await this.$axios.$post('/users/isAuth');
+      console.log('data', data);
+      commit('setUser', data.user);
+    } catch (error) {
+      if(error.response.status === 401) {
+        commit('setUser', null);
+      }
+      console.log('error', error.message);
+    }
   }
 }
 

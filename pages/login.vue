@@ -80,7 +80,7 @@
   export default {
     name: "Login",
     mixins: [validationMixin],
-    middleware: 'notAuth',
+    middleware: ['default', 'notAuth'],
     data: () => ({
       username: '',
       password: '',
@@ -109,20 +109,45 @@
         // console.log('it has entered thy zoone')
         this.$v.$touch();
         if (!this.$v.$invalid) {
-          const data = await this.$axios.$post('/users/login', {
-            username: this.username.trim().toLowerCase(),
-            password: this.password
-          });
+          try {
+            const data = await this.$axios.$post('/users/login', {
+              username: this.username.trim().toLowerCase(),
+              password: this.password
+            });
 
-          console.log('data', data);
+            if(data.success) {
+              this.validationError = '';
+              this.$store.commit('setUser', data.user);
+              this.$router.push({path: `/${data.user.username}`});
+            } else {
+              console.log(data.errors);
+              this.validationError = 'Invalid Login Credentials';
+            }
 
-          if(data.success) {
-            this.validationError = '';
-            this.$store.commit('setUser', data.user);
-            this.$router.push({path: `/${data.user.username}`});
-          } else {
-            console.log(data.errors);
-            this.validationError = 'Invalid Login Credentials';
+          } catch (error) {
+            // Error 😨
+            // if (error.response) {
+            //   /*
+            //    * The request was made and the server responded with a
+            //    * status code that falls out of the range of 2xx
+            //    */
+            //   console.log(error.response.data);
+            //   this.validationError = error.response.data;
+            //   console.log(error.response.status);
+            //   console.log(error.response.headers);
+            // } else if (error.request) {
+            //   /*
+            //    * The request was made but no response was received, `error.request`
+            //    * is an instance of XMLHttpRequest in the browser and an instance
+            //    * of http.ClientRequest in Node.js
+            //    */
+            //   console.log(error.request);
+            // } else {
+            //   // Something happened in setting up the request and triggered an Error
+            //   console.log('Error', error.message);
+              this.validationError = error.message;
+            // }
+            console.log('Error', error);
           }
 
           // await this.$store.dispatch('login');
