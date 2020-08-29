@@ -10,33 +10,33 @@
                 <v-row align="center" justify="center">
                   <v-col cols="12">
                     <v-text-field
-                      v-model="username"
                       :error-messages="usernameErrors"
                       :value="modifyUsername"
+                      @blur="usernameBlur"
+                      @input="$v.username.$touch;"
                       autofocus
                       dense
                       label="Username"
                       required
-                      @blur="usernameBlur"
-                      @input="$v.username.$touch;"
+                      v-model="username"
                     />
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
-                      v-model="password"
                       :error-messages="passwordErrors"
+                      @blur="$v.password.$touch"
+                      @input="$v.password.$touch"
                       dense
                       label="Password"
                       required
                       type="password"
-                      @blur="$v.password.$touch"
-                      @input="$v.password.$touch"
+                      v-model="password"
                     />
                     <v-alert
-                      v-if="validationError"
                       dismissible
                       elevation="2"
                       type="error"
+                      v-if="validationError"
                     >{{ validationError }}
                     </v-alert>
                   </v-col>
@@ -45,11 +45,11 @@
                   <!--                  </v-col>-->
 
                   <v-btn
+                    :disabled="$v.$invalid"
                     block
                     color="mainGreen"
                     rounded
                     type="submit"
-                    :disabled="$v.$invalid"
                   >Login
                   </v-btn>
                   <nuxt-link style="text-decoration: none; color: inherit;" to="/reset">
@@ -67,7 +67,7 @@
             Don't have an account? Signup
           </div>
         </nuxt-link>
-<!--        <v-btn @click="checkAuth">{{$store.state.isAuthenticated}}</v-btn>-->
+        <!--        <v-btn @click="checkAuth">{{$store.state.isAuthenticated}}</v-btn>-->
       </v-col>
     </v-row>
   </v-container>
@@ -80,7 +80,12 @@
   export default {
     name: "Login",
     mixins: [validationMixin],
-    middleware: ['default', 'notAuth'],
+    middleware: ['notAuth'],
+    beforeCreate() {
+      //Secondary Check
+      if (this.$store.state.isAuthenticated)
+        this.$router.push('/');
+    },
     data: () => ({
       username: '',
       password: '',
@@ -115,7 +120,7 @@
               password: this.password
             });
 
-            if(data.success) {
+            if (data.success) {
               this.validationError = '';
               this.$store.commit('setUser', data.user);
               this.$router.push({path: `/${data.user.username}`});
@@ -145,7 +150,7 @@
             // } else {
             //   // Something happened in setting up the request and triggered an Error
             //   console.log('Error', error.message);
-              this.validationError = error.message;
+            this.validationError = error.message;
             // }
             console.log('Error', error);
           }

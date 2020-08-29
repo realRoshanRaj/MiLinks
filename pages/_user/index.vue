@@ -12,7 +12,7 @@
     // called every time before loading the component
     async asyncData({params, store, payload, $axios}) {
       store.commit('updateTitle', 'user');
-      store.commit('showNavBar', true);
+      store.commit('showNavBar', false);
       store.commit('hideEndNavBtn', false);
       if (payload) {
         return {user: payload};

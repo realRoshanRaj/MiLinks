@@ -112,7 +112,7 @@
   export default {
     name: "reset",
     mixins: [validationMixin],
-    middleware: ['default', 'notAuth'],
+    middleware: ['notAuth'],
     fetch({store}) {
       store.commit('updateTitle', 'reset');
       store.commit('showNavBar', true);

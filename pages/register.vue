@@ -96,11 +96,16 @@
   export default {
     name: "register",
     mixins: [validationMixin],
-    middleware: ['default', 'notAuth'],
+    middleware: ['notAuth'],
     fetch({store}) {
       store.commit('updateTitle', 'register');
       store.commit('showNavBar', true);
       store.commit('hideEndNavBtn', true);
+    },
+    beforeCreate() {
+      //Secondary Check
+      if (this.$store.state.isAuthenticated)
+        this.$router.push('/');
     },
     data: () => ({
       name: '',

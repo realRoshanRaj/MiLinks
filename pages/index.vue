@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
-      <v-col cols="12" md="6" sm="7">
+      <v-col cols="12" md="6" sm="7"  v-if="!$store.state.isAuthenticated">
         <p class="text-h4 mb-2 text-center text-no-wrap">
           One link for everything your bio needs</p>
         <p class="text-subheading font-weight-bold mb-3 text-center"
@@ -30,6 +30,7 @@
   const platform = require('platform');
   export default {
     name: "home",
+    // middleware: 'default',
     fetch({store}) {
       store.commit('updateTitle', 'home');
       store.commit('showNavBar', true);
