@@ -81,6 +81,7 @@
                if(data.success) {
                    this.$store.commit('setUser', null);
                }
+               await this.$router.push('/');
             }
         }
     }

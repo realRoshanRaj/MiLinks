@@ -145,7 +145,11 @@
             // } else {
             //   // Something happened in setting up the request and triggered an Error
             //   console.log('Error', error.message);
-            this.validationError = error.message;
+            if(error.response.status == 401) {
+              this.validationError = 'Invalid Login Credentials';
+            } else {
+              this.validationError = error.message;
+            }
             // }
             console.log('Error', error);
           }

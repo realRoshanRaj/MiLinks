@@ -40,7 +40,7 @@ export const actions = {
       console.log('data', data);
       commit('setUser', data.user);
     } catch (error) {
-      if(error.response.status === 401) {
+      if(error.response.status == 401) {
         commit('setUser', null);
       }
       console.log('error', error.message);

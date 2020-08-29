@@ -7,8 +7,8 @@
             <!--            {{$store.state.isAuthenticated}}-->
             <v-avatar size="40%">
               <img
-                alt="John"
-                src="https://cdn.vuetifyjs.com/images/john.jpg"
+                alt="Profile Picture"
+                :src="user.profile.avatar"
               >
             </v-avatar>
           </v-row>
