@@ -81,11 +81,6 @@
     name: "Login",
     mixins: [validationMixin],
     middleware: ['notAuth'],
-    beforeCreate() {
-      //Secondary Check
-      if (this.$store.state.isAuthenticated)
-        this.$router.push('/');
-    },
     data: () => ({
       username: '',
       password: '',

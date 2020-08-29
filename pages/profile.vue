@@ -1,10 +1,25 @@
 <template>
-  <h3>{{user}}</h3>
+  <v-avatar
+    @mouseenter="showAvatarOverlay = true"
+    @mouseleave="showAvatarOverlay = false"
+    size="250"
+  >
+    <v-img
+      :src="user.profile.avatar"
+      alt="Avatar"
+      lazy-src="/imageNotFound.jpg"
+    ></v-img>
+    <v-overlay :value="showAvatarOverlay" absolute>
+      <v-btn @click="changeAvatarDialog = true" large>
+        Edit Avatar
+      </v-btn>
+    </v-overlay>
+  </v-avatar>
 </template>
 
 <script>
   export default {
-    name: "user-profile",
+    name: "profile",
     middleware: ['default', 'authenticated'],
     fetch({ store }) {
       store.commit('updateTitle', 'user');
@@ -17,6 +32,10 @@
     //     user: params.user
     //   }
     // }
+    data: () => ({
+      showAvatarOverlay: false,
+      changeAvatarDialog: false,
+    }),
   }
 </script>
 

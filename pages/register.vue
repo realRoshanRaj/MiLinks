@@ -102,11 +102,6 @@
       store.commit('showNavBar', true);
       store.commit('hideEndNavBtn', true);
     },
-    beforeCreate() {
-      //Secondary Check
-      if (this.$store.state.isAuthenticated)
-        this.$router.push('/');
-    },
     data: () => ({
       name: '',
       username: '',

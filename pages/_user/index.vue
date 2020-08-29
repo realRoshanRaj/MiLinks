@@ -1,29 +1,32 @@
 <template>
-  <div>
-    <v-card>
-      <v-row justify="center">
-        <v-avatar
-          @mouseenter="showAvatarOverlay = true"
-          @mouseleave="showAvatarOverlay = false"
-          size="250"
-        >
-          <v-img
-            :src="user.profile.avatar"
-            alt="Avatar"
-            lazy-src="/imageNotFound.jpg"
-          ></v-img>
-          <v-overlay :value="showAvatarOverlay" absolute>
-            <v-btn @click="changeAvatarDialog = true" large>
-              Edit Avatar
-            </v-btn>
-          </v-overlay>
-        </v-avatar>
-      </v-row>
-    </v-card>
-    <!--    <h1>{{user}}</h1>-->
-    {{$store.state.isAuthenticated}}
-
-  </div>
+  <v-container fluid>
+    <div v-if="user">
+      <v-card color="transparent">
+        <v-card-text>
+          <v-row justify="center">
+            <!--            {{$store.state.isAuthenticated}}-->
+            <v-avatar size="40%">
+              <img
+                alt="John"
+                src="https://cdn.vuetifyjs.com/images/john.jpg"
+              >
+            </v-avatar>
+          </v-row>
+        </v-card-text>
+        <v-card-text>
+          <v-row justify="center">
+            <div class="text-capitalize font-weight-medium text-h4">
+              {{user.name}}
+            </div>
+          </v-row>
+        </v-card-text>
+      </v-card>
+      <!--    <h1>{{user}}</h1>-->
+    </div>
+    <div v-else>
+     This user don't exist page (COMING SOON);
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -35,9 +38,11 @@
       store.commit('showNavBar', false);
       store.commit('hideEndNavBtn', false);
       if (payload) {
+        console.log('from payload');
         return {user: payload};
       } else {
         const {user} = await $axios.$get(`/users/getUser/${params.user}`);
+        console.log('gather from axios');
         return {user};
       }
     },
