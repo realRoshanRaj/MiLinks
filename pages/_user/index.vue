@@ -1,9 +1,29 @@
 <template>
   <div>
+    <v-card>
+      <v-row justify="center">
+        <v-avatar
+          @mouseenter="showAvatarOverlay = true"
+          @mouseleave="showAvatarOverlay = false"
+          size="250"
+        >
+          <v-img
+            :src="user.profile.avatar"
+            alt="Avatar"
+            lazy-src="/imageNotFound.jpg"
+          ></v-img>
+          <v-overlay :value="showAvatarOverlay" absolute>
+            <v-btn @click="changeAvatarDialog = true" large>
+              Edit Avatar
+            </v-btn>
+          </v-overlay>
+        </v-avatar>
+      </v-row>
+    </v-card>
+    <!--    <h1>{{user}}</h1>-->
     {{$store.state.isAuthenticated}}
-    <h1>{{user}}</h1>
-  </div>
 
+  </div>
 </template>
 
 <script>
@@ -20,7 +40,11 @@
         const {user} = await $axios.$get(`/users/getUser/${params.user}`);
         return {user};
       }
-    }
+    },
+    data: () => ({
+      showAvatarOverlay: false,
+      changeAvatarDialog: false,
+    }),
 
   }
 </script>

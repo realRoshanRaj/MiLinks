@@ -123,7 +123,7 @@
             if (data.success) {
               this.validationError = '';
               this.$store.commit('setUser', data.user);
-              this.$router.push({path: `/${data.user.username}`});
+              await this.$router.push({path: `/profile`});
             } else {
               console.log(data.errors);
               this.validationError = 'Invalid Login Credentials';
