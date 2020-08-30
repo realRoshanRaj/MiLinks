@@ -21,6 +21,9 @@
           >Already signed up? Login</nuxt-link>
         </p>
       </v-col>
+      <v-col v-else>
+        <v-btn to="/profile">Go to profile</v-btn>
+      </v-col>
     </v-row>
   </v-container>
 

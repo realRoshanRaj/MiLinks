@@ -98,25 +98,25 @@ export default {
   generate: {
     routes() {
       return axios.get('https://milinks.herokuapp.com/users/userList').then(res => {
-        // return res.data.users.map(user => {
-        //   return {
-        //     route: '/' + user.username,
-        //     payload: user
-        //   }
-        // })
-
-        const routes = [];
-        res.data.users.forEach(user => {
-          routes.push({
+        return res.data.users.map(user => {
+          return {
             route: '/' + user.username,
             payload: user
-          });
-          routes.push({
-            route: '/' + user.username + '/profile',
-            payload: user
-          });
-        });
-        return routes;
+          }
+        })
+
+        // const routes = [];
+        // res.data.users.forEach(user => {
+        //   routes.push({
+        //     route: '/' + user.username,
+        //     payload: user
+        //   });
+        //   routes.push({
+        //     route: '/' + user.username + '/profile',
+        //     payload: user
+        //   });
+        // });
+        // return routes;
       })
     },
     fallback: true
