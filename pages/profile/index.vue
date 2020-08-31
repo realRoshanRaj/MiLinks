@@ -642,6 +642,7 @@
               this.showSnackbar = true;
               this.snackBarText = 'Avatar Successfully Updated';
               this.snackBarColor = 'success';
+              await this.$store.dispatch('checkAuth');
               this.changeAvatarDialog = false;
             } else {
               this.showSnackbar = true;
