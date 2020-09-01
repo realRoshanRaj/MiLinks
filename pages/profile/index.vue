@@ -570,7 +570,7 @@
               const data = await this.$axios.$patch(
                 '/users/updateName',
                 {
-                  name: this.displayName
+                  name: this.displayName.trim()
                 }
               );
               if (data.success) {

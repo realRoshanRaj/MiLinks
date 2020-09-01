@@ -85,7 +85,7 @@
       app
     >-->
     <v-footer>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; MiLinks {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
