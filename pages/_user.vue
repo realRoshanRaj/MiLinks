@@ -28,6 +28,21 @@
             </v-card-text>
           </v-card>
 
+          <!--Socials-->
+          <v-row justify="center" class="mb-3">
+            <v-btn :key="index"
+                   class="mx-2"
+                   icon
+                   outlined
+                   :href="item.url"
+                   v-for="(item, index) in profile.socials">
+<!--              <v-icon>{{findIcon(item.platform)}}</v-icon>-->
+<!--              <span class="iconify" data-icon="fa:home"></span>-->
+              <iconify-icon :data-icon="findIcon(item.platform)" style="font-size: 20px;"></iconify-icon>
+            </v-btn>
+          </v-row>
+
+          <!--Links-->
           <v-row justify="center">
             <v-col
               :key="index"
@@ -42,14 +57,14 @@
                     :href="item.url"
                     class="pa-2 align-center d-flex"
                     height="75"
-                    >
+                  >
                     <v-card-text class="pa-0 mx-auto">
-                      <v-row no-gutters align="center" justify="center">
+                      <v-row align="center" justify="center" no-gutters>
                         <v-img :src="item.img"
+                               aspect-ratio="1"
                                class="ml-n5 rounded"
                                max-height="60"
                                max-width="60"
-                               aspect-ratio="1"
                                v-if="item.img">
                         </v-img>
                         <div class="text-body-1">
@@ -73,6 +88,16 @@
 </template>
 
 <script>
+  const platformToIcon = {
+    instagram: 'mdi-instagram',
+    facebook: 'mdi-facebook',
+    discord: 'mdi-discord',
+    email: 'mdi-email',
+    tiktok: 'simple-icons:tiktok',
+    twitter: 'mdi-twitter',
+    youtube: 'mdi-youtube'
+  }
+
   export default {
     name: "user",
     // called every time before loading the component
@@ -97,7 +122,6 @@
         //title 30 character limit, description 70 character limit
         links: [
           //http://logo.clearbit.com/youtube.org
-          {title: 'Instagram', url: 'https://instagram.com/tonytechbytes'},
           {title: 'Youtube', url: 'https://youtube.com/tonytechbytes'},
           {title: 'Tiktok', url: 'https://tiktok.com/@tonytechbytes'},
           {title: 'Twitter', url: 'https://twitter.com/tonytechbytes'},
@@ -106,9 +130,21 @@
           {title: 'Amazon Amlactin', url: 'https://amzn.to/2XoIrOG'},
           {title: 'Amazon Shop', url: 'http://www.amazon.com/shop/doctorly'},
           {title: 'Youtube Skin Care Basics', url: 'https://youtu.be/rcIDAuIiSaI'}
+        ],
+        socials: [
+          {platform: 'Instagram', url: 'https://instagram.com/tonytechbytes'},
+          {platform: 'Youtube', url: 'https://youtube.com/tonytechbytes'},
+          {platform: 'Twitter', url: 'https://twitter.com/tonytechbytes'},
+          {platform: 'Email', url: 'mailto:tonytechbytes@gmail.com'},
+          {platform: 'Tiktok', url: 'https://tiktok.com/@tonytechbytes'},
         ]
       }
     }),
+    methods: {
+      findIcon(platform) {
+        return platformToIcon[platform.toLowerCase().trim()];
+      }
+    }
   }
 </script>
 
