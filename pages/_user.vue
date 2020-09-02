@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <div align="start" v-if="user">
-          <v-card class="mb-6" outlined>
+          <v-card class="my-6" outlined>
             <v-row>
               <v-avatar class="mx-auto mt-n15 elevation-5" size="150">
                 <img
@@ -36,9 +36,9 @@
                    outlined
                    :href="item.url"
                    v-for="(item, index) in profile.socials">
-<!--              <v-icon>{{findIcon(item.platform)}}</v-icon>-->
+              <v-icon class="iconify" :data-icon="findIcon(item.platform)"></v-icon>
 <!--              <span class="iconify" data-icon="fa:home"></span>-->
-              <iconify-icon :data-icon="findIcon(item.platform)" style="font-size: 20px;"></iconify-icon>
+<!--              <iconify-icon :data-icon="findIcon(item.platform)" style="font-size: 20px;"></iconify-icon>-->
             </v-btn>
           </v-row>
 
@@ -93,9 +93,13 @@
     facebook: 'mdi-facebook',
     discord: 'mdi-discord',
     email: 'mdi-email',
-    tiktok: 'simple-icons:tiktok',
+    tiktok: 'fa-brands:tiktok',
     twitter: 'mdi-twitter',
-    youtube: 'mdi-youtube'
+    youtube: 'mdi-youtube',
+    snapchat: 'simple-icons:snapchat',
+    spotify: 'simple-icons:spotify',
+    twitch: 'mdi-twitch',
+    soundcloud: 'mdi-soundcloud',
   }
 
   export default {
@@ -118,7 +122,7 @@
       showAvatarOverlay: false,
       changeAvatarDialog: false,
       profile: {
-        description: 'Tech Enthusiast \n| YouTube & TikTok Video Creator | Business Inquiries: tonytechbytes@gmail.com',
+        bio: 'Tech Enthusiast \n| YouTube & TikTok Video Creator | Business Inquiries: tonytechbytes@gmail.com',
         //title 30 character limit, description 70 character limit
         links: [
           //http://logo.clearbit.com/youtube.org
