@@ -37,7 +37,7 @@ export const actions = {
   async checkAuth({commit}) {
     try {
       const data = await this.$axios.$post('/users/isAuth');
-      console.log('data', data);
+      // console.log('data', data);
       commit('setUser', data.user);
     } catch (error) {
       if(error.response.status == 401) {

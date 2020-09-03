@@ -26,38 +26,47 @@
           <v-textarea :counter-value="counter" clearable counter no-resize outlined rounded
                       rows="3" v-model="bio">
           </v-textarea>
+          <v-layout class="justify-end">
+            <v-btn :disabled="bioButton" @click="updateBio" color="mainGreen" right rounded>Update Bio</v-btn>
+          </v-layout>
         </v-col>
       </v-row>
     </section>
     <section>
-    <v-row class="ma-1 mt-6" no-gutters>
-      <v-col
-        cols="12"
-        lg="3"
-        md="4"
-        xl="5"
-      >
-        <p class="title">Socials</p>
-      </v-col>
-      <v-col
-        cols="12"
-        lg="9"
-        md="8"
-        xl="7"
-      >
-        <socials></socials>
-      </v-col>
-    </v-row>
+      <v-row class="ma-1 mt-6" no-gutters>
+        <v-col
+          cols="12"
+          lg="3"
+          md="4"
+          xl="5"
+        >
+          <p class="title">Socials</p>
+        </v-col>
+        <v-col
+          cols="12"
+          lg="9"
+          md="8"
+          xl="7"
+        >
+          <socials :socials="profile.socials"></socials>
+        </v-col>
+      </v-row>
     </section>
   </v-container>
 </template>
 
 <script>
   import Socials from "../../components/Socials";
+
   export default {
     name: "profile-page",
     components: {Socials},
     middleware: ['default', 'authenticated'],
+    computed: {
+      bioButton() {
+        return this.bio && (this.bio.length === 0 || this.bio == this.profile.bio)
+      }
+    },
     async asyncData({store, $axios}) {
       store.commit('updateTitle', 'user');
       store.commit('showNavBar', true);
@@ -66,7 +75,9 @@
       return {
         user: store.state.authenticatedUser,
         email: store.state.authenticatedUser.email,
-        displayName: store.state.authenticatedUser.name
+        displayName: store.state.authenticatedUser.name,
+        profile: store.state.authenticatedUser.profile,
+        bio: store.state.authenticatedUser.profile.bio
       };
     },
     data: () => ({
@@ -79,6 +90,14 @@
         } else {
           return '/' + 70;
         }
+      },
+      async updateBio() {
+        if (this.bio == null) {
+          this.bio = '';
+        }
+        const data = await this.$axios.$patch('/users/updateBio', {bio: this.bio});
+        if (data.success)
+          await this.$store.dispatch('checkAuth');
       }
     }
   }

@@ -22,7 +22,7 @@
             <v-card-text class="mt-0 pt-0">
               <v-row justify="center">
                 <p class="text-center dfont-weight-light text-subtitle-1">
-                  {{profile.description}}
+                  {{user.profile.bio}}
                 </p>
               </v-row>
             </v-card-text>

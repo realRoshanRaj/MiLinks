@@ -160,7 +160,7 @@
           console.log(data);
           if(data.loggedIn) {
             this.$store.commit('setUser', data.user);
-            window.location.href = `/${data.user.username}/profile`;
+            await this.$router.push({path: `/profile`});
           } else {
             console.log(data.errors);
           }

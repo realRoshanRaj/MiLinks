@@ -42,13 +42,24 @@
             </template>
 
             <v-list>
-              <v-list-item @click="logout">
-<!--                <v-list-item-icon>-->
+              <v-list-item to="/profile" exact>
+                <v-icon left>mdi-account</v-icon>
+                <v-list-item-content>Account</v-list-item-content>
+              </v-list-item>
 
-<!--                </v-list-item-icon>-->
+              <v-list-item to="/profile/page" exact>
+                <v-icon left>mdi-logout-variant</v-icon>
+                <v-list-item-content>MiPage</v-list-item-content>
+              </v-list-item>
+
+              <v-list-item @click="logout">
+                <!--                <v-list-item-icon>-->
+
+                <!--                </v-list-item-icon>-->
                 <v-icon left>mdi-logout-variant</v-icon>
                 <v-list-item-content>Logout</v-list-item-content>
               </v-list-item>
+
             </v-list>
           </v-menu>
           <!--<v-btn
