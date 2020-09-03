@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card v-if="$vuetify.breakpoint.smAndUp" rounded>
+    <v-card rounded v-if="$vuetify.breakpoint.smAndUp">
       <v-tabs center-active height="375" slider-size="1" vertical>
         <v-tab :key="index" class="justify-start" v-for="(item, index) in platforms">
           <v-icon :data-icon="item.icon" class="iconify" left></v-icon>
@@ -26,7 +26,7 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-    <v-card v-else rounded>
+    <v-card rounded v-else>
       <v-card-text>Rotate your screen into landscape to view</v-card-text>
     </v-card>
   </v-container>
@@ -36,7 +36,13 @@
 <script>
   export default {
     name: "Socials",
-    computed: {},
+    beforeMount() {
+      this.socials.forEach((value) => {
+        const foundIndex = this.platforms.findIndex(item => item.name.toLowerCase() === value.platform.toLowerCase());
+        if (foundIndex != -1)
+          this.platforms[foundIndex].value = value.url;
+      });
+    },
     props: {
       socials: {type: Array, required: true}
     },
@@ -73,13 +79,23 @@
       ],
     }),
     methods: {
-      save(item) {
-        const element = socials.find(x => x.platform.toLowerCase() === item.name);
+      async save(item) {
+        const element = this.socials.find(x => x.platform.toLowerCase() === item.name);
         console.log(element);
-        if(this.isUrl(item.value)) {
+        if (this.isUrl(item.value)) {
           console.log('url check ', item.value);
+          const res = await this.$axios.$post('/users/updateSocials', {
+            url: true,
+            platform: item.name,
+            value: item.value
+          });
         } else {
           console.log('username', item.value);
+          const res = await this.$axios.$post('/users/updateSocials', {
+            url: false,
+            platform: item.name,
+            value: item.value
+          });
         }
       },
       isUrl(str) {

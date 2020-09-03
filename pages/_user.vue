@@ -35,7 +35,7 @@
                    icon
                    outlined
                    :href="item.url"
-                   v-for="(item, index) in profile.socials">
+                   v-for="(item, index) in user.profile.socials">
               <v-icon class="iconify" :data-icon="findIcon(item.platform)"></v-icon>
 <!--              <span class="iconify" data-icon="fa:home"></span>-->
 <!--              <iconify-icon :data-icon="findIcon(item.platform)" style="font-size: 20px;"></iconify-icon>-->

@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
-      <v-col cols="12" md="6" sm="7"  v-if="!$store.state.isAuthenticated">
+      <v-col cols="12" md="6" sm="7" >
         <p class="text-md-h4 text-sm-h6 text-body-1 font-weight-medium mb-2 text-center text-no-wrap">
           One link for everything your bio needs</p>
         <p class="font-weight-bold text--disabled mb-3 text-center"
@@ -21,9 +21,9 @@
           >Already signed up? Login</nuxt-link>
         </p>
       </v-col>
-      <v-col v-else>
-        <v-btn to="/profile">Go to profile</v-btn>
-      </v-col>
+<!--      <v-col v-else>-->
+<!--        <v-btn to="/profile">Go to profile</v-btn>-->
+<!--      </v-col>-->
     </v-row>
   </v-container>
 

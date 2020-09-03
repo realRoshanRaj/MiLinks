@@ -52,6 +52,16 @@
         </v-col>
       </v-row>
     </section>
+    <v-snackbar
+      :color="snackBarColor"
+      :timeout="2000"
+      right
+      top
+      v-model="showSnackbar"
+    >
+      {{ snackBarText }}
+      <v-btn @click="showSnackbar = false" text>Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -64,7 +74,7 @@
     middleware: ['default', 'authenticated'],
     computed: {
       bioButton() {
-        return this.bio && (this.bio.length === 0 || this.bio == this.profile.bio)
+        return (this.bio == this.profile.bio)
       }
     },
     async asyncData({store, $axios}) {
@@ -81,7 +91,10 @@
       };
     },
     data: () => ({
-      bio: ''
+      bio: '',
+      showSnackbar: false,
+      snackBarText: 'Test',
+      snackBarColor: undefined,
     }),
     methods: {
       counter(value) {
@@ -96,9 +109,21 @@
           this.bio = '';
         }
         const data = await this.$axios.$patch('/users/updateBio', {bio: this.bio});
-        if (data.success)
-          await this.$store.dispatch('checkAuth');
-      }
+        if (data.success) {
+          // await this.$store.dispatch('checkAuth');
+          const user = this.$store.state.authenticatedUser;
+          user.profile.bio = this.bio;
+          this.$store.commit('setUser', user);
+          this.profile.bio = this.bio;
+          this.showSnackbar = true;
+          this.snackBarText = 'Bio Successfully Updated';
+          this.snackBarColor = 'success';
+        } else {
+          this.showSnackbar = true;
+          this.snackBarText = 'Error Updating Bio';
+          this.snackBarColor = 'error';
+        }
+      },
     }
   }
 </script>

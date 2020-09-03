@@ -49,6 +49,7 @@
                     block
                     color="mainGreen"
                     rounded
+                    :loading="loadBtn"
                     type="submit"
                   >Login
                   </v-btn>
@@ -85,7 +86,8 @@
       username: '',
       password: '',
       rememberMe: false,
-      validationError: ''
+      validationError: '',
+      loadBtn: false
     }),
     validations: {
       username: {
@@ -109,6 +111,7 @@
         // console.log('it has entered thy zoone')
         this.$v.$touch();
         if (!this.$v.$invalid) {
+          this.loadBtn = true;
           try {
             const data = await this.$axios.$post('/users/login', {
               username: this.username.trim().toLowerCase(),
@@ -150,6 +153,8 @@
             } else {
               this.validationError = error.message;
             }
+
+            this.loadBtn = false;
             // }
             console.log('Error', error);
           }
