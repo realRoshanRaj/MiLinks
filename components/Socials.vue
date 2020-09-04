@@ -14,12 +14,13 @@
             <v-card-text class="py-10">
               <v-text-field :label="'Enter the username/id for ' + item.name" :placeholder="item.placeholder"
                             :prefix="showPrefix(item.value) ? item.prefix : ''"
-                            append-icon="mdi-paste"
+                            clearable
+                            @click:clear="clearTextField(item)"
                             v-model="item.value"
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="pt-12 mt-12">
-              <v-btn :disabled="disableSave(item.value)" @click="save(item)" block color="mainGreen" rounded>Save
+              <v-btn :disabled="disableSave(item)" @click="save(item)" :loading="loadSave" block color="mainGreen" rounded>Save
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -39,8 +40,9 @@
     beforeMount() {
       this.socials.forEach((value) => {
         const foundIndex = this.platforms.findIndex(item => item.name.toLowerCase() === value.platform.toLowerCase());
-        if (foundIndex != -1)
+        if (foundIndex != -1) {
           this.platforms[foundIndex].value = value.url;
+        }
       });
     },
     props: {
@@ -77,25 +79,34 @@
           value: ''
         }
       ],
+      loadSave: false
     }),
     methods: {
       async save(item) {
-        const element = this.socials.find(x => x.platform.toLowerCase() === item.name);
-        console.log(element);
+        let res;
+        this.loadSave = true;
         if (this.isUrl(item.value)) {
-          console.log('url check ', item.value);
-          const res = await this.$axios.$post('/users/updateSocials', {
+          // console.log('url check ', item.value);
+          res = await this.$axios.$post('/users/updateSocials', {
             url: true,
             platform: item.name,
-            value: item.value
+            value: item.value.trim()
           });
         } else {
-          console.log('username', item.value);
-          const res = await this.$axios.$post('/users/updateSocials', {
+          // console.log('username', item.value);
+          res = await this.$axios.$post('/users/updateSocials', {
             url: false,
             platform: item.name,
-            value: item.value
+            value: item.value.trim()
           });
+        }
+        this.loadSave = false;
+        if(res.success) {
+          const user = this.$store.state.authenticatedUser;
+          user.profile.socials = res.socials;
+          this.$store.commit('setUser', user);
+        } else {
+          console.error('An error occured');
         }
       },
       isUrl(str) {
@@ -105,9 +116,15 @@
       showPrefix(textField) {
         return (!this.isUrl(textField)/*Check if not a url*/ || textField.length === 0);
       },
-      disableSave(value) {
-        return value.length === 0;
+      disableSave(item) {
+        if(!item.value) item.value = '';
+        const index = this.socials.findIndex(x => x.platform.toLowerCase() === item.name.toLowerCase());
+        if(index == -1) {return item.value.length === 0};
+        return (item.value.toLowerCase() == this.socials[index].url.toLowerCase());
       },
+      clearTextField(item) {
+        item.value = '';
+      }
     }
   }
 </script>

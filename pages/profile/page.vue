@@ -23,8 +23,8 @@
           md="8"
           xl="7"
         >
-          <v-textarea :counter-value="counter" clearable counter no-resize outlined rounded
-                      rows="3" v-model="bio">
+          <v-textarea clearable counter no-resize outlined rounded
+                      rows="3" maxlength="70" v-model="bio">
           </v-textarea>
           <v-layout class="justify-end">
             <v-btn :disabled="bioButton" @click="updateBio" color="mainGreen" right rounded>Update Bio</v-btn>
@@ -48,7 +48,7 @@
           md="8"
           xl="7"
         >
-          <socials :socials="profile.socials"></socials>
+          <socials :socials="$store.state.authenticatedUser.profile.socials"></socials>
         </v-col>
       </v-row>
     </section>
@@ -74,7 +74,7 @@
     middleware: ['default', 'authenticated'],
     computed: {
       bioButton() {
-        return (this.bio == this.profile.bio)
+        return (this.bio == this.$store.state.authenticatedUser.profile.bio)
       }
     },
     async asyncData({store, $axios}) {
@@ -86,7 +86,6 @@
         user: store.state.authenticatedUser,
         email: store.state.authenticatedUser.email,
         displayName: store.state.authenticatedUser.name,
-        profile: store.state.authenticatedUser.profile,
         bio: store.state.authenticatedUser.profile.bio
       };
     },
@@ -114,7 +113,6 @@
           const user = this.$store.state.authenticatedUser;
           user.profile.bio = this.bio;
           this.$store.commit('setUser', user);
-          this.profile.bio = this.bio;
           this.showSnackbar = true;
           this.snackBarText = 'Bio Successfully Updated';
           this.snackBarColor = 'success';
