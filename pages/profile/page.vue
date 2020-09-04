@@ -75,6 +75,9 @@
     computed: {
       bioButton() {
         return (this.bio == this.$store.state.authenticatedUser.profile.bio)
+      },
+      socialProp() {
+
       }
     },
     async asyncData({store, $axios}) {

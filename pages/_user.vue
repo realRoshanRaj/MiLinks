@@ -122,8 +122,6 @@
       showAvatarOverlay: false,
       changeAvatarDialog: false,
       profile: {
-        bio: 'Tech Enthusiast \n| YouTube & TikTok Video Creator | Business Inquiries: tonytechbytes@gmail.com',
-        //title 30 character limit, description 70 character limit
         links: [
           //http://logo.clearbit.com/youtube.org
           {title: 'Youtube', url: 'https://youtube.com/tonytechbytes'},
