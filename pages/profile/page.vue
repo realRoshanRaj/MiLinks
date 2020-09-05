@@ -3,7 +3,9 @@
     <section>
       <div
         class="text-left headline font-weight-bold blue--text text--accent-3"
-      >Page
+      >Page:
+        <nuxt-link :to="'/' + user.username" style="color: inherit;">milinks.ml/{{user.username}}
+        </nuxt-link>
       </div>
       <v-progress-linear buffer-value="0" color="" stream></v-progress-linear>
     </section>
@@ -23,8 +25,8 @@
           md="8"
           xl="7"
         >
-          <v-textarea clearable counter no-resize outlined rounded
-                      rows="3" maxlength="70" v-model="bio">
+          <v-textarea clearable counter maxlength="70" no-resize outlined
+                      rounded rows="3" v-model="bio">
           </v-textarea>
           <v-layout class="justify-end">
             <v-btn :disabled="bioButton" @click="updateBio" color="mainGreen" right rounded>Update Bio</v-btn>
@@ -72,7 +74,7 @@
           md="8"
           xl="7"
         >
-<!--          <socials :socials="$store.state.authenticatedUser.profile.socials"></socials>-->
+          <!--          <socials :socials="$store.state.authenticatedUser.profile.socials"></socials>-->
           <Links :links="$store.state.authenticatedUser.profile.links"/>
         </v-col>
       </v-row>
@@ -136,7 +138,7 @@
         const data = await this.$axios.$patch('/users/updateBio', {bio: this.bio});
         if (data.success) {
           // await this.$store.dispatch('checkAuth');
-          const user =JSON.parse(JSON.stringify(this.$store.state.authenticatedUser));
+          const user = JSON.parse(JSON.stringify(this.$store.state.authenticatedUser));
           user.profile.bio = this.bio;
           this.$store.commit('setUser', user);
           this.showSnackbar = true;

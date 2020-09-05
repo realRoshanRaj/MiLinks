@@ -74,6 +74,7 @@
       });
 
       this.reorderedSocials = this.socials;
+      console.log(process.env.GOOGLE_ANALYTICS_ID);
     },
     props: {
       socials: {type: Array, required: true}
