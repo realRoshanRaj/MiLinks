@@ -48,7 +48,7 @@
       </v-card-actions>
     </v-card>
 
-    <v-btn @click="addLink" block color="mainGreen" rounded>
+    <v-btn @click="addLink" block color="mainGreen" rounded :disabled="links.length >= 5">
       <v-icon left>mdi-plus</v-icon>
       Add Link
     </v-btn>

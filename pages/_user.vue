@@ -48,7 +48,7 @@
               :key="index"
               cols="12"
               md="6"
-              v-for="(item, index) in profile.links"
+              v-for="(item, index) in user.profile.links"
             >
               <v-hover>
                 <template v-slot="{ hover }">
@@ -121,19 +121,6 @@
     data: () => ({
       showAvatarOverlay: false,
       changeAvatarDialog: false,
-      profile: {
-        links: [
-          //http://logo.clearbit.com/youtube.org
-          {title: 'Youtube', url: 'https://youtube.com/tonytechbytes'},
-          {title: 'Tiktok', url: 'https://tiktok.com/@tonytechbytes'},
-          {title: 'Twitter', url: 'https://twitter.com/tonytechbytes'},
-          {title: 'Twitch', url: 'https://twitch.tv/tonytechbytes'},
-          {title: 'Discord', url: 'https://discord.gg/bfhNcWF'},
-          {title: 'Amazon Amlactin', url: 'https://amzn.to/2XoIrOG'},
-          {title: 'Amazon Shop', url: 'http://www.amazon.com/shop/doctorly'},
-          {title: 'Youtube Skin Care Basics', url: 'https://youtu.be/rcIDAuIiSaI'}
-        ],
-      }
     }),
     methods: {
       findIcon(platform) {
