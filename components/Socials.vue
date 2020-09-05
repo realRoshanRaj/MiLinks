@@ -32,7 +32,7 @@
       <v-card-text>Rotate your screen into landscape to view</v-card-text>
     </v-card>
 
-    <v-card class="mt-5" outlined tile>
+    <v-card class="mt-5" outlined tile v-if="socials.length > 1">
       <v-row class="mb-2 mt-4" justify="center">
         <draggable @end="drag = false" @start="drag = true" v-bind="dragOptions"
                    v-model="reorderedSocials">
@@ -49,7 +49,9 @@
       </v-row>
       <v-card-actions>
         <v-layout class="justify-end">
-          <v-btn :disabled="JSON.stringify(reorderedSocials) === JSON.stringify(socials)" color="mainGreen" rounded @click="updateOrder">
+          <v-btn :disabled="JSON.stringify(reorderedSocials) === JSON.stringify(socials)" @click="updateOrder"
+                 color="mainGreen"
+                 rounded>
           <span class="px-2">
               Update Order
           </span>
@@ -105,7 +107,7 @@
           placeholder: 'soundcloud username',
           value: ''
         },
-        {name: 'Spotify', icon: 'simple-icons:spotify', value: ''},
+        // {name: 'Spotify', icon: 'simple-icons:spotify', value: ''},
         {name: 'TikTok', icon: 'fa-brands:tiktok', prefix: 'tiktok.com/@', placeholder: 'tiktok username', value: ''},
         {name: 'Twitch', icon: 'mdi-twitch', prefix: 'twitch.tv/', placeholder: 'twitch username', value: ''},
         {name: 'Twitter', icon: 'mdi-twitter', prefix: 'twitter.com/', placeholder: 'twitter handle', value: ''},
@@ -142,7 +144,7 @@
         }
         this.loadSave = false;
         if (res.success) {
-          const user = this.$store.state.authenticatedUser;
+          const user = JSON.parse(JSON.stringify(this.$store.state.authenticatedUser));
           user.profile.socials = res.socials;
           this.$store.commit('setUser', user);
           this.reorderedSocials = this.$store.state.authenticatedUser.profile.socials;
@@ -152,8 +154,8 @@
       },
       async updateOrder() {
         const data = await this.$axios.$patch('/users/updateSocialOrder', {socials: this.reorderedSocials});
-        if(data.success) {
-          const user = this.$store.state.authenticatedUser;
+        if (data.success) {
+          const user = JSON.parse(JSON.stringify(this.$store.state.authenticatedUser));
           user.profile.socials = data.socials;
           this.$store.commit('setUser', user);
         } else {

@@ -10,53 +10,53 @@
                 <v-row align="center" justify="center">
                   <v-col cols="12">
                     <v-text-field
-                      v-model="name"
                       :error-messages="nameErrors"
+                      @blur="$v.name.$touch"
+                      @input="$v.name.$touch"
                       autofocus
                       counter="30"
                       label="Name"
                       required
-                      @blur="$v.name.$touch"
-                      @input="$v.name.$touch"
+                      v-model="name"
                     />
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
-                      v-model="username"
                       :error-messages="usernameErrors"
+                      :loading="loadingUsername"
                       :prefix="(showPrefix || username.trim() !== '') ? 'milinks.ml/' : ''"
                       :value="modifyUsername"
+                      @blur="$v.username.$touch"
+                      @focus="showPrefix = false"
                       counter="25"
                       dense
                       hint="username may only contain letters numbers and underscores"
                       label="Username"
                       required
-                      @blur="usernameBlur"
-                      @focus="showPrefix = false"
-                      @input="$v.username.$touch;"
+                      v-model="username"
                     />
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
-                      v-model="email"
                       :error-messages="emailErrors"
+                      :loading="loadingEmail"
+                      @blur="$v.email.$touch"
                       dense
                       label="Email"
                       required
-                      @blur="$v.email.$touch"
-                      @input="$v.email.$touch"
+                      v-model="email"
                     />
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      v-model="password"
                       :error-messages="passwordErrors"
+                      @blur="$v.password.$touch"
+                      @input="$v.password.$touch"
                       dense
                       label="Password"
                       required
                       type="password"
-                      @blur="$v.password.$touch"
-                      @input="$v.password.$touch"
+                      v-model="password"
                     />
                   </v-col>
                   <v-col cols="12" sm="6">
@@ -66,11 +66,11 @@
                                   v-model="confirmPassword"></v-text-field>
                   </v-col>
                   <v-btn
+                    :disabled="$v.$invalid"
                     block
                     color="mainGreen"
                     rounded
                     type="submit"
-                    :disabled="$v.$invalid"
                   >Create an Account
                   </v-btn>
                 </v-row>
@@ -91,7 +91,6 @@
 <script>
   import {validationMixin} from 'vuelidate';
   import {email, maxLength, minLength, required, sameAs} from 'vuelidate/lib/validators';
-  import axios from 'axios';
 
   export default {
     name: "register",
@@ -108,7 +107,9 @@
       email: '',
       password: '',
       confirmPassword: '',
-      showPrefix: false
+      showPrefix: false,
+      loadingUsername: false,
+      loadingEmail: false,
     }),
     validations: {
       name: {
@@ -118,11 +119,27 @@
       username: {
         required,
         minLength: minLength(4),
-        maxLength: maxLength(25)
+        maxLength: maxLength(25),
+        async isUnique(value) {
+          this.loadingUsername = true;
+          const data = await this.$axios.$post(`/users/uniqueUsername`, {
+            username: value.trim().toLowerCase()
+          });
+          this.loadingUsername = false;
+          return data.isUnique;
+        }
       },
       email: {
         required,
-        email
+        email,
+        async isUnique(value) {
+          this.loadingEmail = true;
+          const data = await this.$axios.$post(`/users/uniqueEmail`, {
+            email: value.trim().toLowerCase()
+          });
+          this.loadingEmail = false;
+          return data.isUnique;
+        }
       },
       password: {
         required,
@@ -135,8 +152,9 @@
     },
     methods: {
       usernameBlur() {
+        console.log('it has been blurred')
         this.showPrefix = false;
-        this.$v.username.$touch();
+        this.$v.username.$touch;
       },
       async register() {
         this.$v.$touch();
@@ -158,7 +176,7 @@
             password: this.password
           });
           console.log(data);
-          if(data.loggedIn) {
+          if (data.loggedIn) {
             this.$store.commit('setUser', data.user);
             await this.$router.push({path: `/profile`});
           } else {
@@ -182,6 +200,8 @@
         !this.$v.username.maxLength &&
         errors.push("Usernames can't be longer than 25 characters");
         !this.$v.username.required && errors.push('Username is required.');
+        if (errors.length) return errors;
+        !this.$v.username.isUnique && errors.push('Username is taken.');
         return errors;
       },
       nameErrors() {
@@ -197,6 +217,8 @@
         if (!this.$v.email.$dirty) return errors;
         !this.$v.email.email && errors.push('Must be valid e-mail');
         !this.$v.email.required && errors.push('E-mail is required');
+        if (errors.length) return errors;
+        !this.$v.email.isUnique && errors.push('Email is already taken.');
         return errors;
       },
       passwordErrors() {

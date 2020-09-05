@@ -32,6 +32,8 @@
         </v-col>
       </v-row>
     </section>
+    <v-progress-linear buffer-value="0" color="" stream></v-progress-linear>
+
     <section>
       <v-row class="ma-1 mt-6" no-gutters>
         <v-col
@@ -52,6 +54,29 @@
         </v-col>
       </v-row>
     </section>
+    <v-progress-linear buffer-value="0" color="" stream></v-progress-linear>
+
+    <section>
+      <v-row class="ma-1 mt-6" no-gutters>
+        <v-col
+          cols="12"
+          lg="3"
+          md="4"
+          xl="5"
+        >
+          <p class="title">Links</p>
+        </v-col>
+        <v-col
+          cols="12"
+          lg="9"
+          md="8"
+          xl="7"
+        >
+<!--          <socials :socials="$store.state.authenticatedUser.profile.socials"></socials>-->
+          <Links :links="$store.state.authenticatedUser.profile.links"/>
+        </v-col>
+      </v-row>
+    </section>
     <v-snackbar
       :color="snackBarColor"
       :timeout="2000"
@@ -67,18 +92,16 @@
 
 <script>
   import Socials from "../../components/Socials";
+  import Links from "../../components/Links";
 
   export default {
     name: "profile-page",
-    components: {Socials},
+    components: {Links, Socials},
     middleware: ['default', 'authenticated'],
     computed: {
       bioButton() {
         return (this.bio == this.$store.state.authenticatedUser.profile.bio)
       },
-      socialProp() {
-
-      }
     },
     async asyncData({store, $axios}) {
       store.commit('updateTitle', 'user');
@@ -113,7 +136,7 @@
         const data = await this.$axios.$patch('/users/updateBio', {bio: this.bio});
         if (data.success) {
           // await this.$store.dispatch('checkAuth');
-          const user = this.$store.state.authenticatedUser;
+          const user =JSON.parse(JSON.stringify(this.$store.state.authenticatedUser));
           user.profile.bio = this.bio;
           this.$store.commit('setUser', user);
           this.showSnackbar = true;

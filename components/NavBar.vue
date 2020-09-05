@@ -48,7 +48,7 @@
               </v-list-item>
 
               <v-list-item to="/profile/page" exact>
-                <v-icon left>mdi-logout-variant</v-icon>
+                <v-icon left>mdi-file</v-icon>
                 <v-list-item-content>MiPage</v-list-item-content>
               </v-list-item>
 

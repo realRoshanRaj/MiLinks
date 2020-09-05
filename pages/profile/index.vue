@@ -674,6 +674,13 @@
         } else this.changeAvatarDialog = false;
         this.$nuxt.$loading.finish();
       },
+      async deleteAccount() {
+        const data = await this.$axios.$delete('/users/deleteAccount');
+        if(data.success) {
+          await this.$store.dispatch('checkAuth');
+          await this.$router.push('/')
+        }
+      }
     }
   }
 </script>

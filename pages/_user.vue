@@ -133,13 +133,6 @@
           {title: 'Amazon Shop', url: 'http://www.amazon.com/shop/doctorly'},
           {title: 'Youtube Skin Care Basics', url: 'https://youtu.be/rcIDAuIiSaI'}
         ],
-        socials: [
-          {platform: 'Instagram', url: 'https://instagram.com/tonytechbytes'},
-          {platform: 'Youtube', url: 'https://youtube.com/tonytechbytes'},
-          {platform: 'Twitter', url: 'https://twitter.com/tonytechbytes'},
-          {platform: 'Email', url: 'mailto:tonytechbytes@gmail.com'},
-          {platform: 'Tiktok', url: 'https://tiktok.com/@tonytechbytes'},
-        ]
       }
     }),
     methods: {
